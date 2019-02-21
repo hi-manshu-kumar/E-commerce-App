@@ -26,10 +26,43 @@ const Footer = () => {
                                     <div>Kramer 1244</div>
                                 </div>
                             </div>
+                            <div className="tag">
+                                <FontAwesomeIcon
+                                    icon={faPhone}
+                                    className="icon"
+                                /> 
+                                <div className="info">
+                                    <div>Phone</div>
+                                    <div>21566-65456</div>
+                                </div>
+                            </div>
+                            <div className="tag">
+                                <FontAwesomeIcon
+                                    icon={faClock}
+                                    className="icon"
+                                />
+                                <div className="info">
+                                    <div>Working Hours</div>
+                                    <div>Mon-Sun/ 9am-8am</div>
+                                </div>
+                            </div>
+                            <div className="tag">
+                                <FontAwesomeIcon
+                                    icon={faEnvelope}
+                                    className="icon"
+                                />
+                                <div className="info">
+                                    <div>Email</div>
+                                    <div>abc@gmail.com</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div className="left">
-
+                        <h2>Be the first to know</h2>
+                        <div>
+                            <div>Get all the latest information on events, sales and offers.You can miss out.</div>
+                        </div>
                     </div>
                 </div>
             </div>
