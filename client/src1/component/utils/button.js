@@ -17,7 +17,6 @@ const MyButton = (props) => {
             default:
                 template='';
         }
-
         return template;
     }
     
