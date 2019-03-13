@@ -8,7 +8,7 @@ require('dotenv').config();
 mongoose.Promise = global.Promise;
 mongoose.set('useCreateIndex', true);
 mongoose.connect("mongodb://localhost:27017/waves", {
-    useNewUrlParser: true
+    useNewUrlParser : true
 });
 
 app.use(express.urlencoded({
@@ -25,14 +25,14 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Models
-const { User } = require('./models/user');
-const { Brand } = require('./models/brand');
-const { Wood } = require('./models/wood');
+const { User }    = require('./models/user');
+const { Brand }   = require('./models/brand');
+const { Wood }    = require('./models/wood');
 const { Product } = require('./models/product');
 
 // Middlewares
-const { auth } = require('./middleware/auth');
-const { admin } =require ('./middleware/admin');
+const { auth }  = require('./middleware/auth');
+const { admin } = require ('./middleware/admin');
 
 // ============================================================
 //                   PRODUCTS
@@ -44,9 +44,9 @@ const { admin } =require ('./middleware/admin');
 // By SELL
 // /articles?sortBy=sold&order=desc&limit=4&skip=5 
 app.get('/api/product/articles', (req, res) => {
-    let order = req.query.order ? req.query.order: 'asc';
+    let order  = req.query.order ? req.query.order: 'asc';
     let sortBy = req.query.sortBy ? req.query.sort: '_id';
-    let limit = req.query.limit ? parseInt(req.query.limit): 100;
+    let limit  = req.query.limit ? parseInt(req.query.limit): 100;
     
     Product.
     find().
