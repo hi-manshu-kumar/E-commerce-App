@@ -5,6 +5,12 @@ export const validate = (element, formdata = []) => {
     if(element.validation.email){
         const valid =  	/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(element.value);
         const message = `${!valid? 'Must be a valid email':''}`;
+        error = !valid? [valid, message]: error;
+    }
+
+    if(element.validation.confirm){
+        const valid = element.value.trim() === formdata[element.validation.confirm].value;
+        const message = `${!valid? 'Password do not match':''}`;
 
         error = !valid? [valid, message]: error;
     }
@@ -45,7 +51,9 @@ export const generateData = (formdata, formName) => {
     let dataToSubmit = {};
 
     for (let key in formdata){
-        dataToSubmit[key] = formdata[key].value;
+        if(key !== 'confirmPassword'){
+            dataToSubmit[key] = formdata[key].value;
+        }
     }
 
     return dataToSubmit;
