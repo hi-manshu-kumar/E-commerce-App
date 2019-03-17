@@ -58,13 +58,14 @@ app.post('/api/product/shop', (req, res) => {
         }
     }
     
+    findArgs['publish'] = true;
 
     Product.
     find(findArgs).
     populate('brand').
     populate('wood').
     sort([[sortBy, order]]).
-    skip(skip).
+    skip(skip)
     limit(limit).
     exec((err, articles) => {
         if(err) return res.status(400).send(err);
