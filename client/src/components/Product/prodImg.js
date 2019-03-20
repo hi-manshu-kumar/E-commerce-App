@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import ImageLightBox from '../utils/lightbox';
 
 class ProdImg extends Component{
     state = {
@@ -21,8 +22,19 @@ class ProdImg extends Component{
         }
     }
 
-    handleLightBox = () => {
+    handleLightBox = (pos) => {
+        if(this.state.lightboxImages.length>0){
+            this.setState({
+                lightbox : true,
+                imagePos: pos
+            })
+        }
+    }
 
+    handleLightBoxClose = () => {
+        this.setState({
+            lightbox: false
+        })
     }
 
     showThumbs = (detail) => (
@@ -60,6 +72,17 @@ class ProdImg extends Component{
                 <div className="main_thumbs">
                     {this.showThumbs(detail)}
                 </div>
+                {
+                    this.state.lightbox ?
+                        <ImageLightBox
+                            id={detail.id}
+                            images={this.state.lightboxImages}
+                            open={this.state.open}
+                            pos={this.state.imagePos}
+                            onclose={()=> this.handleLightBoxClose()}
+                        />
+                    :null
+                }
             </div>
         );
     }
