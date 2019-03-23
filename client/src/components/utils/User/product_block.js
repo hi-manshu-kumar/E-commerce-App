@@ -10,10 +10,9 @@ const UserProductBlock = ({products, removeItem}) => {
         }
     }
 
-    const renderItems = () => {
-        console.log('inside user', products)
-        return products.cardDetail ?
-            products.cardDetail.map(product => (
+    const renderItems = () => (
+        products.cartDetail ?
+            products.cartDetail.map(product => (
                 <div className="user_product_block" key={product._id}>
                     <div className="item">
                         <div
@@ -48,7 +47,7 @@ const UserProductBlock = ({products, removeItem}) => {
                 </div>
             ))
         :null
-    }
+    )
 
     return (
         <div>
