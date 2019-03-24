@@ -13,7 +13,7 @@ import {
 } from './types';
 
 import { USER_SERVER,PRODUCT_SERVER } from './../components/utils/misc';
-import { func } from 'prop-types';
+// import { func } from 'prop-types';
 
 export function registerUser(dataToSubmit){
     const request = axios.post(`${USER_SERVER}/register`, dataToSubmit)
