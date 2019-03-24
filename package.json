@@ -10,6 +10,9 @@
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
+  "engines": {
+    "node": "8.15.1"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hi-manshu-kumar/E-commerce-App.git"
