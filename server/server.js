@@ -3,6 +3,7 @@ const cookieParser = require('cookie-parser');
 const formidable = require('express-formidable');
 const cloudinary = require('cloudinary');
 
+
 const app = express();
 var mongoose = require('mongoose');
 const async = require('async');
@@ -46,6 +47,34 @@ const { Site }    = require('./models/site');
 // Middlewares
 const { auth }  = require('./middleware/auth');
 const { admin } = require ('./middleware/admin');
+
+// UTILS
+const { sendEmail } = require('./utils/mail/index');
+
+// const smtpTransport = mailer.createTransport({
+//     service: "Gmail",
+//     auth:{
+//         user: 'himanshuikumar493@gmail.com',
+//         pass: 'himanshurocks'
+//     }
+// });
+
+// let mail = {
+//     form: "Waves <himanshuikumar493@gmail.com>",
+//     to: "himanshu.kumar394@gmail.com",
+//     subject: "Send test email",
+//     text: "Testing our waves mails",
+//     html: "<b>Hello guys this works</b>"
+// }
+
+// smtpTransport.sendMail(mail, function(error, response){
+//     if(error){
+//         console.log(error);
+//     } else {
+//         console.log('email sent')
+//     }
+//     smtpTransport.close();
+// })
 
 // ============================================================
 //                   PRODUCTS
@@ -220,6 +249,7 @@ app.post('/api/users/register', (req, res) => {
             success: false,
             err
         });
+        sendEmail(doc.email, doc.name, null, "welcome");
         res.status(200).json({
             success : true,
         });
