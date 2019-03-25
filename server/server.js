@@ -2,7 +2,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const formidable = require('express-formidable');
 const cloudinary = require('cloudinary');
-
+const SHA1 = require("crypto-js/sha1");
 
 const app = express();
 var mongoose = require('mongoose');
@@ -50,6 +50,11 @@ const { admin } = require ('./middleware/admin');
 
 // UTILS
 const { sendEmail } = require('./utils/mail/index');
+
+// const date = new Date();
+// const po = `PO-${date.getSeconds()}${date.getMilliseconds()}-${SHA1("dsdsdsd").toString().substring(0,8)}`
+
+// console.log(po);
 
 // const smtpTransport = mailer.createTransport({
 //     service: "Gmail",
@@ -128,7 +133,7 @@ app.post('/api/product/shop', (req, res) => {
 // /articles?sortBy=sold&order=desc&limit=4&skip=5 
 app.get('/api/product/articles', (req, res) => {
     let order  = req.query.order ? req.query.order: 'asc';
-    let sortBy = req.query.sortBy ? req.query.sort: '_id';
+    let sortBy = req.query.sortBy ? req.query.sortBy: '_id';
     let limit  = req.query.limit ? parseInt(req.query.limit): 100;
     
     Product.
@@ -389,10 +394,15 @@ app.get('/api/users/removeFromCart', auth, (req, res) => {
 app.post('/api/users/successBuy', auth, (req, res) => {
     let history = [];
     let transactionData = {};
+    const date = new Date();
+    const po = `PO-${date.getSeconds()}${date.getMilliseconds()}-${SHA1(req.user._id).toString().substring(0,8)}`
+
+    console.log(po);
 
     // user history
     req.body.cartDetail.forEach((item)=> {
         history.push({
+            porder         : po,
             dateOfPurchase : Date.now(),
             name           : item.name,
             brand          : item.brand.name,
@@ -410,7 +420,10 @@ app.post('/api/users/successBuy', auth, (req, res) => {
         lastname: req.user.lastname,
         email: req.user.email
     }
-    transactionData.data = req.body.paymentData;
+    transactionData.data = {
+        ...req.body.paymentData,
+        porder: po
+    };
     transactionData.product =  history;
 
     User.findOneAndUpdate(
@@ -439,6 +452,7 @@ app.post('/api/users/successBuy', auth, (req, res) => {
                     )
                 }, (err) => {
                     if(err) return res.json({success:false, err});
+                    sendEmail(user.email, user.name, null, "purchase", transactionData)
                     res.status(200).json({
                         success: true, 
                         cart: user.cart,
