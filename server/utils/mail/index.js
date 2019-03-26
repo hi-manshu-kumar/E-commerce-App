@@ -1,7 +1,8 @@
-const mailer = require('nodemailer');
-const { welcome } = require("./welcome_template");
-const { purchase } = require("./purchase_template");
-require('dotenv').config();
+const mailer        = require('nodemailer');
+const { welcome }   = require("./welcome_template");
+const { purchase }  = require("./purchase_template");
+const { resetPass } = require("./resetpass_template");
+require('dotenv').config();                 
 
 const getEmailData = (to, name, token, template, actionData) => {
     let data = null;
@@ -10,7 +11,7 @@ const getEmailData = (to, name, token, template, actionData) => {
         case "welcome":
             data = {
                 form: "Waves <himanshuikumar493@gmail.com>",
-                to,
+                to:to,
                 subject: `Welcome to waves ${name}`,
                 html: welcome()
             }
@@ -23,9 +24,17 @@ const getEmailData = (to, name, token, template, actionData) => {
                 html: purchase(actionData)
             }
         break;
+        case "reset_password":
+            data = {
+                from: "Waves <himanshuikumar493@gmail.com>",
+                to,
+                subject: `Hey ${name}, reset your pass`,
+                html: resetPass(actionData)
+            }
         default:
             data;
     }
+    return data;
 }
 
 const sendEmail = (to, name, token, type, actionData = null) => {

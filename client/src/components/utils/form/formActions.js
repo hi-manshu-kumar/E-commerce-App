@@ -3,7 +3,7 @@ export const validate = (element, formdata = []) => {
     let error = [true, ''];
 
     if(element.validation.email){
-        const valid =  	/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(element.value);
+        const valid =  	/\S+@\S+\.\S+/.test(element.value);
         const message = `${!valid? 'Must be a valid email':''}`;
         error = !valid? [valid, message]: error;
     }

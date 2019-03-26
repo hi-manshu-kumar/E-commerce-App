@@ -64,7 +64,6 @@ class Login extends Component {
         if(formIsValid){
             this.props.dispatch(loginUser(dataToSubmit)).then(response => {
                 if( response.payload.loginSuccess){
-                    console.log(response.payload);
                     this.props.history.push('/user/dashboard');
                 } else {
                     this.setState({
@@ -102,7 +101,12 @@ class Login extends Component {
                         </div>
                     :null}
 
-                    <button onClick={(event) => this.submitForm(event)}>LOG IN</button>
+                    <button onClick={(event) => this.submitForm(event)}>Log in</button>
+                    <button 
+                        style={{marginLeft: '10px'}}
+                        onClick={() => this.props.history.push('/reset_user')}>
+                        Forgot my password
+                    </button>
                 </form>
             </div>
         );
