@@ -1,8 +1,8 @@
+require('dotenv').config();                 
 const mailer        = require('nodemailer');
 const { welcome }   = require("./welcome_template");
 const { purchase }  = require("./purchase_template");
 const { resetPass } = require("./resetpass_template");
-require('dotenv').config();                 
 
 const getEmailData = (to, name, token, template, actionData) => {
     let data = null;
