@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/hi-manshu-kumar/E-commerce-App#readme",
   "dependencies": {
-    "bcrypt": "^3.0.4",
+    "bcrypt": "^5.0.0",
     "cloudinary": "^1.13.2",
     "concurrently": "^4.1.0",
     "cookie-parser": "^1.4.4",
